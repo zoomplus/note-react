@@ -2,9 +2,10 @@ import {
     SET_MARKDOWN, 
     GET_MARKDOWN, 
     DELETE_MARKDOWN, 
-    EDIT_MARKDOWN 
+    EDIT_MARKDOWN,
+    SET_SEARCHED
 } from './actions';
-import { db } from '../models/db';
+import { db } from '@frontend/models/db';
 
 export const reducer = (state, action) => {
     switch (action.type) {
@@ -21,6 +22,7 @@ export const reducer = (state, action) => {
             }
 
             return {
+                ...state,
                 data: [
                     ...action.payload
                 ],
@@ -51,6 +53,17 @@ export const reducer = (state, action) => {
             db.markdown.where("id").equals(state.active).modify({content: content});
             return {
                 ...state
+            };
+            break;
+        }
+        case SET_SEARCHED: {
+            let ids = action.payload.ids;
+
+            return {
+                ...state,
+                searched: [
+                    ...ids
+                ]
             };
             break;
         }

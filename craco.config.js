@@ -50,7 +50,9 @@ module.exports = {
         alias: {
             '@frontend/components': resolvePath('./src/components'),
             '@frontend/assets': resolvePath('./src/assets'),
-            '@frontend/hooks': resolvePath('./src/hooks')
+            '@frontend/hooks': resolvePath('./src/hooks'),
+            '@frontend/models': resolvePath('./src/models'),
+            '@frontend/context': resolvePath('./src/context')
         },
         plugins: {
             add: [], /* An array of plugins */ 

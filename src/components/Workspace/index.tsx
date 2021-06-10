@@ -6,11 +6,11 @@ import classNames from 'classnames/bind';
 import DOMPurify from 'dompurify';
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
-import { Spin } from 'antd';
+import { Spin, Modal, Button } from 'antd';
 
 //ctx
-import {useCustomContext} from '../../context/ctx';
-import { editMarkdown, deleteMarkdown } from '../../context/actions';
+import {useCustomContext} from '@frontend/context/ctx';
+import { editMarkdown, deleteMarkdown } from '@frontend/context/actions';
 
 import styles from './Workspace.module.scss';
 
@@ -26,6 +26,7 @@ const Workspace = ({className}) => {
     //states
     const [edit, setEdit]   = useState(false);
     const [data, setData]   = useState('');
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
     //fn
     const getMarkdownText = () => {
@@ -38,10 +39,18 @@ const Workspace = ({className}) => {
         dispatch(editMarkdown(value));
     }
 
-    const deleteMarkdownHandler = () => {
-        //TODO вызывает модалку которая требует подтверждение для удаления
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
+    
+    const handleOk = () => {
+        setIsModalVisible(false);
         dispatch(deleteMarkdown());
-    }
+    };
+    
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
 
     //put content from db in data after update
     useEffect(() => {
@@ -69,8 +78,12 @@ const Workspace = ({className}) => {
                 <div className={className} dangerouslySetInnerHTML={getMarkdownText()}></div>
             }
             
-            <button onClick={deleteMarkdownHandler}>delete</button>
-            <button onClick={() => {setEdit(!edit)}}>{edit ? 'save' : 'edit'}</button>
+            <Button type="primary" onClick={showModal}>delete</Button>
+            <Button type="primary" onClick={() => {setEdit(!edit)}}>{edit ? 'save' : 'edit'}</Button>
+
+            <Modal title="Confirm action" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+                <p>You sure about your action?</p>
+            </Modal>
         </>
     );
 }

@@ -6,8 +6,9 @@ import React, {
 } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 
-import { reducer } from './reducer';
-import { db } from '../models/db';
+import { reducer } from '@frontend/context/reducer';
+
+import { db } from '@frontend/models/db';
 
 const Context = React.createContext([]);
 

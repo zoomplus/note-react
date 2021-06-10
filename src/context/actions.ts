@@ -2,6 +2,7 @@ export const SET_MARKDOWN       = 'SET_MARKDOWN';
 export const GET_MARKDOWN       = 'GET_MARKDOWN';
 export const DELETE_MARKDOWN    = 'DELETE_MARKDOWN';
 export const EDIT_MARKDOWN      = 'EDIT_MARKDOWN';
+export const SET_SEARCHED       = 'SET_SEARCHED';
 
 export const editMarkdown = (content) => {
     return {
@@ -23,6 +24,15 @@ export const getMarkdown = (id) => {
         type: GET_MARKDOWN,
         payload: {
             id: id
+        }
+    }
+}
+
+export const setSearched = (ids) => {
+    return {
+        type: SET_SEARCHED,
+        payload: {
+            ids: ids
         }
     }
 }

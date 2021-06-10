@@ -6,8 +6,8 @@ import classNames from 'classnames/bind';
 import { List, Divider, Spin } from 'antd';
 
 //ctx
-import { useCustomContext } from '../../context/ctx';
-import { getMarkdown } from '../../context/actions';
+import { useCustomContext } from '@frontend/context/ctx';
+import { getMarkdown } from '@frontend/context/actions';
 
 import styles from './ListItem.module.scss';
 
@@ -45,9 +45,18 @@ const ListItem = ({className}) => {
                 bordered
                 dataSource={data}
                 renderItem={
-                    item => <List.Item onClick={() => { dispatch(getMarkdown(item.id)) }}>
-                        { item.name }
-                    </List.Item>
+                    item => {
+                        let searched = false;
+                        if(state.searched) {
+                            let have = state.searched.find((itemState) => itemState === item.id);
+                            if(have) {
+                                searched = !!have;
+                            }
+                        }
+                        return <List.Item onClick={() => { dispatch(getMarkdown(item.id)) }} style={( searched ? {backgroundColor: 'yellow'} : {backgroundColor: 'white'})}>
+                            { item.name }
+                        </List.Item>
+                    }
                 }
             />
         </div>
