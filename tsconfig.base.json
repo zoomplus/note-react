@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./src",
+        "paths": {
+            "@frontend/hooks/*": ["hooks/*"],
+            "@frontend/assets/*": ["assets/*"],
+            "@frontend/components/*": ["components/*"],
+            "@frontend/interfaces": ["interfaces/*"]
+        }
+    }
+}
